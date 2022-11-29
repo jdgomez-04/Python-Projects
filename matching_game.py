@@ -18,6 +18,7 @@ def playmemory():
         flipcard()
         matchcheck()
     
+    stop = 2
     endgame()
     done()
     
@@ -195,7 +196,7 @@ def matchcheck():
 # def reflip():
     
 def endgame():
-    if stop == 0:    
+    if stop == 2:    
         print('Congratulations, You Win!!!')
     if stop == 1:
         menu()
