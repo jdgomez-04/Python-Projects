@@ -5,6 +5,8 @@ x_val = [0,75,150,225,0,75,150,225,0,75,150,225]
 y_val = [0,0,0,0,75,75,75,75,150,150,150,150]
 correct = 0
 chosen = []
+selected = []
+stop = 0
 
 def playmemory():
     
@@ -22,8 +24,12 @@ def playmemory():
 
 def createspace():
     play = input('Play? Y/N: ')
+    if play != 'Y' or play != 'y':
+        stop = 1
+        endgame()
+        
     print('Cards are in order 1-12 from bottom to top and left to right.')
-    if play == 'Y':
+    if play == 'Y' or play == 'y':
         speed(0)
         screen = Screen()
         setworldcoordinates(-50, -50, 325, 250)
@@ -134,11 +140,15 @@ def store():
 # def displaycard():
     
 def selectcard():
-    global guess
+    global guess, selected
     guess = int(input("Choose a card to flip 1-12: "))
-    while guess in chosen or guess > 12 or guess < 1:
-        if guess in chosen or guess > 12 or guess < 1:
+    while guess in chosen or guess > 12 or guess < 1 or guess in selected:
+        if guess in chosen or guess > 12 or guess < 1 or guess in selected:
             guess = int(input("Choose a new card: "))
+    if guess not in selected:
+        selected.append(guess)
+    if len(selected) == 2:
+        selected = []
     
 # def removecard():
     
@@ -185,6 +195,9 @@ def matchcheck():
 # def reflip():
     
 def endgame():
-    print('Congratulations, You Win!!!')
+    if stop == 0:    
+        print('Congratulations, You Win!!!')
+    if stop == 1:
+        menu()
     
 playmemory()
